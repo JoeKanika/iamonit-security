@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: "Barlow", sans-serif;
+  background: #061f38;
+}
+
+.heading-font {
+  font-family: "Oswald", sans-serif;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-45px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.9s ease-out both;
+}
+
+.animate-slow-zoom {
+  animation: slowZoom 10s ease-in-out infinite alternate;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.premium-card {
+  transition: all 0.35s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-10px) scale(1.015);
+  box-shadow: 0 25px 60px rgba(6, 31, 56, 0.18);
+  border-color: #62c92a;
+}
+@keyframes logoFloat {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.13;
+  }
+  50% {
+    transform: translateY(-18px) scale(1.04);
+    opacity: 0.22;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.13;
+  }
+}
+
+.animate-logo-float {
+  animation: logoFloat 6s ease-in-out infinite;
+}
