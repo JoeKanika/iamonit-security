@@ -5,14 +5,6 @@ import Industries from "./pages/Industries";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
-function PlaceholderPage({ title }) {
-  return (
-    <div className="min-h-screen bg-[#eef5ff] flex items-center justify-center">
-      <h1 className="heading-font text-6xl text-[#06213b]">{title}</h1>
-    </div>
-  );
-}
-
 function App() {
   return (
     <BrowserRouter>
@@ -22,7 +14,6 @@ function App() {
         <Route path="/industries" element={<Industries />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/client-portal" element={<PlaceholderPage title="Client Portal Coming Soon" />} />
       </Routes>
     </BrowserRouter>
   );
