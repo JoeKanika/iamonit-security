@@ -17,7 +17,7 @@ function Navbar() {
     <header className="bg-[#061f38] text-white border-b border-white/10 sticky top-0 z-50">
       <div className="bg-[#031421] px-4 md:px-16 py-2 flex flex-wrap justify-center md:justify-end gap-4 text-[11px] md:text-sm">
         <span className="flex items-center gap-2 text-[#62c92a]">
-          <FaPhoneAlt /> 2534203126,2067309793
+          <FaPhoneAlt /> 2534203126 or 2067309793
         </span>
 
         <span className="hidden sm:flex items-center gap-2 text-white/70">

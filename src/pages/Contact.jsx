@@ -73,7 +73,7 @@ function Contact() {
               <div className="flex gap-4">
                 <FaPhoneAlt className="text-[#62c92a] mt-1" />
                 <div>
-                  <p className="font-bold">(202) 555-0192</p>
+                  <p className="font-bold">2534203126 or 2067309793</p>
                   <p className="text-white/50 text-sm">Main line — 24/7 urgent inquiries</p>
                 </div>
               </div>

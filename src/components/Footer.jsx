@@ -45,7 +45,7 @@ function Footer() {
         <div>
           <h3 className="text-[#62c92a] tracking-[0.22em] font-bold mb-6 text-sm">CONTACT US</h3>
           <ul className="space-y-5 text-white/80">
-            <li className="flex gap-3"><FaPhoneAlt className="text-[#62c92a]" /> (202) 555-0192</li>
+            <li className="flex gap-3"><FaPhoneAlt className="text-[#62c92a]" /> 2534203126 or 2067309793</li>
             <li className="flex gap-3"><FaEnvelope className="text-[#62c92a]" /> info@iamonitsecurity.com</li>
             <li className="flex gap-3"><FaMapMarkerAlt className="text-[#62c92a]" /> Serving Clients Nationwide</li>
           </ul>
