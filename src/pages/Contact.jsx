@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
@@ -10,6 +10,9 @@ import {
 } from "react-icons/fa";
 
 function Contact() {
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const processSteps = [
     ["01", "Submit Your Request", "Fill out the form with your security needs and contact info."],
     ["02", "Free Consultation", "We’ll contact you to discuss your requirements in detail."],
@@ -17,11 +20,36 @@ function Contact() {
     ["04", "Deployment", "We deploy your security team on time, every time."],
   ];
 
-  const inputStyle =
-    "w-full bg-transparent border-b border-[#62c92a]/25 py-4 text-white placeholder-white/25 outline-none focus:border-[#62c92a] transition-all";
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus("");
 
-  const labelStyle =
-    "block text-white/50 text-xs tracking-[0.2em] uppercase font-bold mb-2";
+    const formData = new FormData(e.target);
+    formData.append("access_key", "80e9711b-c38f-4279-93c5-378095829bdf");
+    formData.append("subject", "New Security Assessment Request - IAMONIT");
+    formData.append("from_name", "IAMONIT Website");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus("success");
+        e.target.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="bg-[#06213b] text-white">
@@ -73,7 +101,7 @@ function Contact() {
               <div className="flex gap-4">
                 <FaPhoneAlt className="text-[#62c92a] mt-1" />
                 <div>
-                  <p className="font-bold">2534203126 or 2067309793</p>
+                  <p className="font-bold">(253) 420-3126 or (206) 730-9793</p>
                   <p className="text-white/50 text-sm">Main line — 24/7 urgent inquiries</p>
                 </div>
               </div>
@@ -81,7 +109,7 @@ function Contact() {
               <div className="flex gap-4">
                 <FaEnvelope className="text-[#62c92a] mt-1" />
                 <div>
-                  <p className="font-bold">info@iamonitsecurity.com</p>
+                  <p className="font-bold">info@iamonits.com</p>
                   <p className="text-white/50 text-sm">Quotes and general inquiries</p>
                 </div>
               </div>
@@ -106,15 +134,17 @@ function Contact() {
         </div>
       </section>
 
-      <section className="bg-[#eef5ff] text-[#06213b] px-6 md:px-20 py-24">
+      <section
+        id="quote-form"
+        className="bg-[#eef5ff] text-[#06213b] px-6 md:px-20 py-24 scroll-mt-32"
+      >
         <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.3fr_0.8fr] gap-14">
           <form
             className="bg-white border border-gray-200 shadow-xl p-8 md:p-12"
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Form submission will be connected to Gmail later.");
-            }}
+            onSubmit={handleSubmit}
           >
+            <input type="checkbox" name="botcheck" className="hidden" />
+
             <div className="mb-10">
               <p className="text-[#62c92a] tracking-[0.25em] text-xs font-bold uppercase">
                 01 — Contact Information
@@ -129,6 +159,7 @@ function Contact() {
                 </label>
                 <input
                   required
+                  name="full_name"
                   type="text"
                   placeholder="Jane Smith"
                   className="w-full bg-transparent border-b border-gray-300 py-4 outline-none focus:border-[#62c92a]"
@@ -140,6 +171,7 @@ function Contact() {
                   Organization
                 </label>
                 <input
+                  name="organization"
                   type="text"
                   placeholder="Company or venue name"
                   className="w-full bg-transparent border-b border-gray-300 py-4 outline-none focus:border-[#62c92a]"
@@ -152,6 +184,7 @@ function Contact() {
                 </label>
                 <input
                   required
+                  name="email"
                   type="email"
                   placeholder="jane@example.com"
                   className="w-full bg-transparent border-b border-gray-300 py-4 outline-none focus:border-[#62c92a]"
@@ -163,6 +196,7 @@ function Contact() {
                   Phone Number
                 </label>
                 <input
+                  name="phone"
                   type="tel"
                   placeholder="(202) 555-0000"
                   className="w-full bg-transparent border-b border-gray-300 py-4 outline-none focus:border-[#62c92a]"
@@ -184,6 +218,7 @@ function Contact() {
                 </label>
                 <select
                   required
+                  name="industry_type"
                   className="w-full bg-transparent border-b border-gray-300 py-4 outline-none focus:border-[#62c92a]"
                 >
                   <option value="">Select industry</option>
@@ -203,6 +238,7 @@ function Contact() {
                 </label>
                 <select
                   required
+                  name="service_type"
                   className="w-full bg-transparent border-b border-gray-300 py-4 outline-none focus:border-[#62c92a]"
                 >
                   <option value="">Select service</option>
@@ -229,17 +265,31 @@ function Contact() {
                 Tell Us More About Your Needs
               </label>
               <textarea
+                name="message"
                 rows="6"
                 placeholder="Property size, number of locations, event dates, specific concerns..."
                 className="w-full bg-transparent border-b border-gray-300 py-4 outline-none focus:border-[#62c92a] resize-none"
               />
             </div>
 
+            {status === "success" && (
+              <p className="mt-6 text-[#62c92a] font-bold">
+                Thank you! Your request has been sent. We’ll contact you shortly.
+              </p>
+            )}
+
+            {status === "error" && (
+              <p className="mt-6 text-red-600 font-bold">
+                Something went wrong. Please try again or call us directly.
+              </p>
+            )}
+
             <button
               type="submit"
-              className="mt-10 bg-[#62c92a] text-white px-10 py-4 font-bold tracking-[0.18em] hover:bg-[#06213b] transition-all hover:-translate-y-1"
+              disabled={loading}
+              className="mt-10 bg-[#62c92a] text-white px-10 py-4 font-bold tracking-[0.18em] hover:bg-[#06213b] transition-all hover:-translate-y-1 disabled:opacity-60"
             >
-              SUBMIT REQUEST →
+              {loading ? "SENDING..." : "SUBMIT REQUEST →"}
             </button>
           </form>
 
